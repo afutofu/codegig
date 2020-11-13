@@ -12,6 +12,9 @@ db.authenticate()
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Handlebars
 app.engine(
   "handlebars",
@@ -27,8 +30,6 @@ app.set("view engine", "handlebars");
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.render("index", { layout: "landing" });
