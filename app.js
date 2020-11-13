@@ -12,10 +12,26 @@ db.authenticate()
 
 const app = express();
 
+// Handlebars
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+  })
+);
+app.set("view engine", "handlebars");
+
+// Set static folder
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("INDEX");
+  res.render("index", { layout: "landing" });
 });
 
 // Gig routes
